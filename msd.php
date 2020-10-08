@@ -21,12 +21,10 @@ while ($intervalCounts) {
     if ($pos == $count) {
         break;
     }
+    $iterationIntervalCounts = [];
     while ($intervalCount = array_shift($intervalCounts)) {
         $toIndex = $intervalCount[1];
         $fromIndex = $intervalCount[0];
-        if ($toIndex - $fromIndex == 1) {
-            continue;
-        }
         $counts = [];
         for ($i = $fromIndex; $i < $toIndex; ++$i) {
             $char = charAt($list[$i], $pos);
@@ -39,21 +37,21 @@ while ($intervalCounts) {
         while ($charCount = current($counts)) {
             $curCount = $totalCounts - $counts[key($counts)];
             $counts[key($counts)] = $curCount;
+            $iterationIntervalCounts[] = [$fromIndex + $curCount, $fromIndex + $totalCounts];
             next($counts);
             $nextCount = key($counts);
             $charCount = $counts[$nextCount] ?? 0;
-            $intervalCounts[] = [$fromIndex + $curCount, $fromIndex + $nextCount];
             $totalCounts += $charCount;
         }
         ksort($counts);
         for ($i = $fromIndex; $i < $toIndex; ++$i) {
-            $char = charAt($pos, $list[$i]);
+            $char = charAt($list[$i], $pos);
             $code = ord($char);
-            $res[$counts[$code]++] = $list[$i];
+            $res[$fromIndex + $counts[$code]++] = $list[$i];
         }
-        var_dump($res);
-        die('asd');
+        ksort($res);
     }
+    $intervalCounts = $iterationIntervalCounts;
     $list = $res;
     ++$pos;
 }
