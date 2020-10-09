@@ -11,9 +11,7 @@ $queue[0] = 0;
 $dist[0] = 0;
 $marked = array_fill(0, $count, false);
 while ($queue) {
-    var_dump($queue);
     $v = key($queue);
-    var_dump($v);
     $el = current($queue);
     unset($queue[$v]);
     $marked[$v] = true;
@@ -28,5 +26,5 @@ while ($queue) {
     }
     asort($queue);
 }
-//var_dump($list);
-//var_dump($dist);
+var_dump($list);
+var_dump($dist);
