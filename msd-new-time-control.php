@@ -4,18 +4,18 @@ function charAt($str, $i)
     return $str[$i] ?? '';
 }
 
-$count = rand(5, 15);
 $maxLength = 0;
-$list = [];
 $seq = 'abcdefghijklmnopqrstuvwxyz';
+$list = [];
+$count = rand(5, 15);
 for ($i = 0; $i < $count; ++$i) {
     $length = rand(5, 15);
     $maxLength = $maxLength > $length ? $maxLength : $length;
     $list[] = substr($seq, rand(5, 15), $length);
 }
-$queue = [[0, $count]];
 $pos = 0;
-while ($pos < $maxLength) {
+$queue = [[0, $count]];
+while ($pos != $maxLength) {
     $res = [];
     $itQueue = [];
     while ($queue) {
@@ -47,8 +47,8 @@ while ($pos < $maxLength) {
             $itQueue[] = [$fromIndex + $itCount, $fromIndex + $counts[$code]];
         }
     }
+    $queue = $itQueue;
     $list = $res;
     ++$pos;
-    $queue = $itQueue;
 }
 var_dump($list);
