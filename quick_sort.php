@@ -2,6 +2,9 @@
 declare(strict_types=1);
 
 assert_options(ASSERT_ACTIVE, 1);
+/**
+ * @uses assertHandler()
+ */
 assert_options(ASSERT_CALLBACK, 'assertHandler');
 
 function quickSort(array $a): array
@@ -61,7 +64,7 @@ function quickSort(array $a): array
 
 function assertHandler(string $file, int $line, ?string $assertion, string $description): void
 {
-    printf("Error: %s %s %s", $file, $assertion, $description);
+    printf("Error: %s %s %s %d", $file, $assertion, $description, $line);
 }
 
 assert(quickSort([]) === []);
