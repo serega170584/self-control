@@ -7,10 +7,8 @@ assert_options(ASSERT_CALLBACK, 'assertHandler');
 function quickSort(array $a): array
 {
     $elIndex = 0;
-    $el = $a[$elIndex] ?? NULL;
     $count = count($a);
     $rightIndex = $count - 1;
-    $rightEl = $a[$rightIndex] ?? NULL;
 
     $indexQueue = [];
 
