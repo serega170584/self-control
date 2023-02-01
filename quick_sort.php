@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+assert_options(ASSERT_ACTIVE, 1);
+assert_options(ASSERT_CALLBACK, 'assertHandler');
+
 function quickSort(array $a): array
 {
     $elIndex = 0;
@@ -58,7 +61,15 @@ function quickSort(array $a): array
     return $a;
 }
 
-var_dump(quickSort([]));
-var_dump(quickSort([3,2]));
-var_dump(quickSort([1,3,2]));
-var_dump(quickSort([4,3,5,7,8,1,2]));
+function assertHandler(string $file, int $line, ?string $assertion, string $description): void
+{
+    printf("Error: %s %s %s", $file, $assertion, $description);
+}
+
+assert(quickSort([]) === []);
+
+assert(quickSort([3,2]) === [], 'Error');
+
+assert(quickSort([1,3,2]), [1, 2, 3]);
+
+assert(quickSort([4,3,5,7,8,1,2]), [1, 2, 3, 4, 5, 7, 8]);
